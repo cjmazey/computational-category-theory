@@ -311,3 +311,65 @@ structure BinTree :
 #+end_example
 
 *** Exercise 7
+
+#+BEGIN_SRC sml
+  signature FIELD =
+     sig
+        eqtype t
+
+        val zero : t
+        val one : t
+        val add : t * t -> t
+        val addInv : t -> t
+        val sub : t * t -> t
+        val mul : t * t -> t
+        val mulInv : t -> t
+        val dvd : t * t -> t
+     end
+
+  structure Rational : FIELD =
+     struct
+        open IntInf
+
+        type t = int * int
+
+        val zero : t = (0, 1)
+
+        val one : t = (1, 1)
+
+        val rec gcd = fn (0, b) => b
+                       | (a, b) => gcd (b mod a, a)
+
+        (* gcd (a, b) has the same sign as a *)
+        fun canon (a, b) = let val d = gcd (b, a) in (a div d, b div d) end
+
+        fun add ((a, b), (c, d)) = canon (a * d + c * b, b * d)
+
+        fun addInv (a, b) = canon (~a, b)
+
+        fun sub (p, q) = add (p, addInv q)
+
+        fun mul ((a, b), (c, d)) = canon (a * c, b * d)
+
+        fun mulInv (a, b) = canon (b, a)
+
+        fun dvd (p, q) = mul (p, mulInv q)
+     end
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+signature FIELD =
+  sig
+    eqtype t
+    val zero : t
+    val one : t
+    val add : t * t -> t
+    val addInv : t -> t
+    val sub : t * t -> t
+    val mul : t * t -> t
+    val mulInv : t -> t
+    val dvd : t * t -> t
+  end
+structure Rational : FIELD
+#+end_example
