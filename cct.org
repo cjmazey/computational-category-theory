@@ -201,3 +201,69 @@ val compose = fn : ('a -> 'b) -> ('c -> 'a) -> 'c -> 'b
 : val compose = fn : ('a -> 'b) * ('c -> 'a) -> 'c -> 'b
 
 *** Exercise 5
+
+**** 1.
+
+#+BEGIN_SRC sml
+  val maxList =
+     fn [] => raise (Fail "maxList: empty list")
+      | x :: xs => foldl (fn (a, b) => if b > a then b else a) x xs
+#+END_SRC
+
+#+RESULTS:
+: val maxList = fn : int list -> int
+
+**** 2.
+
+#+BEGIN_SRC sml
+  val sumList = foldl (op +) 0
+#+END_SRC
+
+#+RESULTS:
+: val sumList = fn : int list -> int
+
+**** 3.
+
+#+BEGIN_SRC sml
+  fun polyList cs x = foldr (fn (a, b) => a + b * x) 0 cs
+#+END_SRC
+
+#+RESULTS:
+: val polyList = fn : int list -> int -> int
+
+**** 4.
+
+#+BEGIN_SRC sml
+  val rec revList =
+     fn [] => []
+      | x :: xs => revList xs @ [x]
+#+END_SRC
+
+#+RESULTS:
+: val revList = fn : 'a list -> 'a list
+
+**** 5.
+
+#+BEGIN_EXAMPLE
+  val mapList = fn : ('a -> 'b) -> 'a list -> 'b list
+#+END_EXAMPLE
+
+#+BEGIN_SRC sml
+  fun mapList f = foldr (fn (a, b) => f a :: b) []
+#+END_SRC
+
+#+RESULTS:
+: val mapList = fn : ('a -> 'b) -> 'a list -> 'b list
+
+**** 6.
+
+#+BEGIN_SRC sml
+  fun fold f z =
+     fn [] => z
+      | x :: xs => fold f (f (x, z)) xs
+#+END_SRC
+
+#+RESULTS:
+: val fold = fn : ('a * 'b -> 'b) -> 'b -> 'a list -> 'b
+
+*** Exercise 6
