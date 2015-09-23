@@ -1,0 +1,78 @@
+
+***************** COMPUTATIONAL CATEGORY THEORY *******************
+
+This is a directory of categorical programs written in Standard ML. 
+
+The book Computational Category Theory, D.E. Rydeheard and R.M. Burstall 
+(Prentice Hall 1988) has full details of this programming (see below).
+
+   RUNNING THE CODE:
+
+The code is written in the programming language Standard ML. It runs 
+under the Moscow SML system. This is available for many platforms (Windows, 
+Linux etc). 
+
+Details and source are at http://www.dina.kvl.dk/~sestoft/mosml.html
+
+   FILES:
+
+The files "basic" and "cat" should be compiled first and then others
+according to the dependencies stated in the files.
+
+To compile all the categorical code without the examples, use the
+order of compilation: 
+
+   - basic       Some basic code required for Computational Category Theory
+   - cat         For simple categories, limits, colimits and some examples
+   - comma       For the comma category construction, limits, colimits etc
+   - functorcat  For the functor category construction
+   - adjoints    For adjunctions
+   - semitopos   For internal propositional logic
+   - topos       Cartesian closed categories, and toposes with
+                   internal constructions including predicate logic
+
+Any of the example files may then be run (eg x.cat is a file of examples of
+categories and limit and colimit constructions).
+
+   COMPILATION:
+
+Save the files above into your filestore (or cut-and-paste from the screen)
+using the same file names.
+
+To compile a file `name', enter Standard ML and type:
+
+      use "name";
+
+This will compile value definitions and function definitions and evaluate
+expressions.
+
+   EXAMPLES:
+
+Files "x.thing" contain examples of `thing' and may be run when "thing"
+has been compiled. These are 
+
+  - x.cat, x.cat.more  For examples of constructions of limits and colimits
+  - x.comma            Limits and colimits in comma categories
+  - x.adjoints         Examples of adjoints
+  - x.semitopos        Internal propositional logic
+
+  SOURCE for book
+
+The book is available in Postscript and PDF format at 
+
+      http://www.cs.man.ac.uk/~david/categories/book
+
+It is available for personal use only and not to be distributed, made 
+multiple copies, made available on other websites, or sold in any format. 
+Full copyright remains with the authors.
+
+----------------------
+
+The programs are available for educational and experimental use only. 
+They should not be incorporated in any product and not offered for 
+commercial gain. They should not be distributed or made available on any 
+website. Neither Manchester University nor the authors are liable 
+for any consequence of the use of the programs. Full rights remain 
+with the authors.
+
+
