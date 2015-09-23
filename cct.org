@@ -267,3 +267,47 @@ val compose = fn : ('a -> 'b) -> ('c -> 'a) -> 'c -> 'b
 : val fold = fn : ('a * 'b -> 'b) -> 'b -> 'a list -> 'b
 
 *** Exercise 6
+
+#+BEGIN_SRC sml
+  structure BinTree =
+     struct
+        datatype 'a t =
+           Tip of 'a
+         | Node of 'a t * 'a t
+
+        fun fold fTip fNode tree =
+           let val rec loop =
+              fn Tip a => fTip a
+               | Node (l, r) => fNode (loop l, loop r)
+           in
+              loop tree
+           end
+
+        fun breadth tree = fold (fn _ => 1) (op +) tree
+
+        fun depth tree =
+           fold (fn _ => 0) (fn (a, b) => 1 + Int.max (a, b)) tree
+
+        fun toList tree = fold (fn x => [x]) (op @) tree
+
+        val ex1 = Node (Node (Tip 1, Tip 2), Tip 3)
+
+        val test1 = (breadth ex1, depth ex1, toList ex1)
+     end
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+structure BinTree :
+  sig
+    datatype 'a t = Node of 'a t * 'a t | Tip of 'a
+    val fold : ('a -> 'b) -> ('b * 'b -> 'b) -> 'a t -> 'b
+    val breadth : 'a t -> int
+    val depth : 'a t -> int
+    val toList : 'a t -> 'a list
+    val ex1 : int t
+    val test1 : int * int * int list
+  end
+#+end_example
+
+*** Exercise 7
