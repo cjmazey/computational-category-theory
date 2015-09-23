@@ -97,3 +97,107 @@ val it = 8 : int
 : val p = (5,6) : int * int
 
 *** Exercise 2
+
+**** 1.
+
+#+BEGIN_SRC sml
+  fun sign n = n > 0
+#+END_SRC
+
+#+RESULTS:
+: val sign = fn : int -> bool
+
+**** 2.
+
+#+BEGIN_SRC sml
+  fun absValue n = if n < 0 then ~n else n
+#+END_SRC
+
+#+RESULTS:
+: val absValue = fn : int -> int
+
+**** 3.
+
+#+BEGIN_SRC sml
+  fun maximum (n, m) = if m > n then m else n
+#+END_SRC
+
+#+RESULTS:
+: val maximum = fn : int * int -> int
+
+**** 4.
+
+#+BEGIN_SRC sml
+  local open IntInf
+  in
+     fun fibonacci n =
+       let val rec loop = fn (1, n, _) => n
+                           | (i, n, n') => loop (i - 1, n', n + n')
+       in
+          if n < 1 then raise Domain else loop (n, 1, 1)
+       end
+  end
+#+END_SRC
+
+#+RESULTS:
+: val fibonacci = fn : IntInf.int -> IntInf.int
+
+*** Exercise 3
+
+#+BEGIN_SRC sml
+  structure Nat =
+     struct
+        datatype t = O | S of t
+
+        val rec toInt : t -> IntInf.int =
+           fn O => 0
+            | S n => 1 + toInt n
+
+        val rec add =
+           fn (O, m) => m
+            | (S n, m) => S (add (n, m))
+
+        val rec mul =
+           fn (O, m) => O
+            | (S n, m) => add (m, mul (n, m))
+     end
+#+END_SRC
+
+#+RESULTS:
+: structure Nat :
+:   sig
+:     datatype t = O | S of t
+:     val toInt : t -> IntInf.int
+:     val add : t * t -> t
+:     val mul : t * t -> t
+:   end
+
+*** Exercise 4
+
+**** 1.
+
+#+BEGIN_EXAMPLE
+val apply = fn : ('a -> 'b) -> 'a -> 'b
+#+END_EXAMPLE
+
+#+BEGIN_SRC sml
+  fun apply f x = f x
+#+END_SRC
+
+#+RESULTS:
+: val apply = fn : ('a -> 'b) -> 'a -> 'b
+
+**** 2.
+
+#+BEGIN_EXAMPLE
+val compose = fn : ('a -> 'b) -> ('c -> 'a) -> 'c -> 'b
+#+END_EXAMPLE
+
+#+BEGIN_SRC sml
+  fun compose (g, f) = fn x => g (f x)
+#+END_SRC
+
+#+RESULTS:
+: val compose = fn : ('a -> 'b) * ('c -> 'a) -> 'c -> 'b
+
+*** Exercise 5
